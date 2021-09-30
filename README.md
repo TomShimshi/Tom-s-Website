@@ -15,3 +15,4 @@ Link to video worked with- https://www.youtube.com/watch?v=-qdG_P85fFQ&list=PL6u
 In order to start the server- change directory to server, and then use the command "npm run dev"
 
 Finished Video 1- Backend tutorial
+In the end of video 2- min 53

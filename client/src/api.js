@@ -9,22 +9,22 @@ export default class API {
   }
   // Get a single post by ID
   static async getPostById(id) {
-    const res = await axios.get(url + "/" + id);
+    const res = await axios.get(`${url}/${id}`);
     return res.data;
   }
   // Insert post into the database
-  static async getPostById(id) {
+  static async addPost(post) {
     const res = await axios.get(url, post);
     return res.data;
   }
   // Update post into database
-  static async updatePost(post) {
-    const res = await axios.patch(url + "/" + id, post);
+  static async updatePost(id, post) {
+    const res = await axios.patch(`${url}/${id}`, post);
     return res.data;
   }
   // Delete a post from database
   static async deletePost(id) {
-    const res = await axios.delete(url + "/" + id);
+    const res = await axios.delete(`${url}/${id}`);
     return res.data;
   }
 }
