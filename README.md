@@ -15,5 +15,5 @@ Link to video worked with- https://www.youtube.com/watch?v=-qdG_P85fFQ&list=PL6u
 In order to start the server- change directory to server, and then use the command "npm run dev"
 In order to start the client- change directory to client, and then use the command "npm run serve"
 
-Finished Video 1+2- Backend + Client tutorial
+Finished Video 1+2- Backend + Frontend tutorial
 
