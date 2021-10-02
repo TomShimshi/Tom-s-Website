@@ -13,6 +13,7 @@ axios
 Link to video worked with- https://www.youtube.com/watch?v=-qdG_P85fFQ&list=PL6u82dzQtlfs88r-Q1_1L0ZnV8aB1KL0S&index=1
 
 In order to start the server- change directory to server, and then use the command "npm run dev"
+In order to start the client- change directory to client, and then use the command "npm run serve"
 
-Finished Video 1- Backend tutorial
-In the end of video 2- min 53
+Finished Video 1+2- Backend + Client tutorial
+
