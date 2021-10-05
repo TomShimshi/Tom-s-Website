@@ -16,4 +16,5 @@ In order to start the server- change directory to server, and then use the comma
 In order to start the client- change directory to client, and then use the command "npm run serve"
 
 Finished Video 1+2- Backend + Frontend tutorial
+Remain Video 3- Launch project to the web
 

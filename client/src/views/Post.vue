@@ -52,7 +52,10 @@
     methods: {
       async removePost(id) {
         const response = await API.deletePost(id);
-        this.$router.push({ name: "home", params: { message: post.message } });
+        this.$router.push({
+          name: "home",
+          params: { message: response.message },
+        });
       },
     },
   };

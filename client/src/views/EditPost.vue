@@ -1,15 +1,5 @@
 <template>
   <v-container>
-    <v-alert
-      border="left"
-      close-text="Close Alert"
-      color="green accent-4"
-      dark
-      dismissible
-      v-if="this.$route.params.message"
-    >
-      {{ this.$route.params.message }}
-    </v-alert>
     <v-row no-gutters>
       <v-col sm="10" class="mx-auto">
         <v-card class="pa-5">
@@ -80,21 +70,24 @@
       selectFile(file) {
         this.image = file[0];
       },
-    },
-    async updateForm() {
-      const formData = new FormData();
-      formData.append("image", this.image);
-      formData.append("title", this.post.title);
-      formData.append("category", this.post.category);
-      formData.append("content", this.post.content);
-      formData.append("old_image", this.post.image);
-      if (this.$refs.form.validate()) {
-        const response = await API.updatePost(this.$route.params.id, formData);
-        this.$router.push({
-          name: "home",
-          params: { message: response.message },
-        });
-      }
+      async updateForm() {
+        const formData = new FormData();
+        formData.append("image", this.image);
+        formData.append("title", this.post.title);
+        formData.append("category", this.post.category);
+        formData.append("content", this.post.content);
+        formData.append("old_image", this.post.image);
+        if (this.$refs.form.validate()) {
+          const response = await API.updatePost(
+            this.$route.params.id,
+            formData
+          );
+          this.$router.push({
+            name: "home",
+            params: { message: response.message },
+          });
+        }
+      },
     },
   };
 </script>
