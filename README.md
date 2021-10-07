@@ -20,3 +20,7 @@ Remain Video 3- Launch project to the web
 
 Defined 2 schemas for elements in the server- Post and Task, finished Backend part.
 
+To do list:
+- add new post from home page
+- activate all buttons in ToDoList page
+- fade alerts and auto-render after saving a file

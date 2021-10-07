@@ -8,5 +8,6 @@ Vue.config.productionTip = false
 new Vue({
   router,
   vuetify,
+  hotReaload: true,
   render: h => h(App)
 }).$mount('#app')

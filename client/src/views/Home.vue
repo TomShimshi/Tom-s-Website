@@ -23,6 +23,13 @@
           </v-card-text>
         </v-card>
       </v-col>
+      <v-col sm="4" class="pa-3">
+        <v-card class="pa-1">
+          <v-btn icon @click="dialog = !dialog" color="primary">
+            <v-icon>mdi-plus</v-icon>
+          </v-btn>
+        </v-card>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -34,6 +41,7 @@
     data() {
       return {
         posts: [],
+        dialog: false,
       };
     },
     async created() {
