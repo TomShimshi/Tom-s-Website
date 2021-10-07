@@ -18,3 +18,5 @@ In order to start the client- change directory to client, and then use the comma
 Finished Video 1+2- Backend + Frontend tutorial
 Remain Video 3- Launch project to the web
 
+Defined 2 schemas for elements in the server- Post and Task, finished Backend part.
+

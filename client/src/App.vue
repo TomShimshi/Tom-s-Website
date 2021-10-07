@@ -26,7 +26,7 @@
     <v-app-bar app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>My Application</v-toolbar-title>
     </v-app-bar>
 
     <v-main>
@@ -42,7 +42,7 @@
       items: [
         { title: "Home", icon: "mdi-home", link: "/" },
         { title: "Add Post", icon: "mdi-note-plus", link: "/add-post" },
-        { title: "About", icon: "mdi-help-box", link: "/about" },
+        { title: "To Do List", icon: "mdi-help-box", link: "/to-do-list" },
       ],
     }),
   };

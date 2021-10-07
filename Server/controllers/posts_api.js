@@ -42,6 +42,12 @@ module.exports = class API {
 
   // update a post
   static async updatePost(req, res) {
+    try {
+      const post = await Post.findById(req.params.id)
+      if (post === null) {
+        res.status(404).json({
+          message: 'There is no such post!'})
+    } else {
     const id = req.params.id;
     let new_image = "";
     if (req.file) {
@@ -62,10 +68,18 @@ module.exports = class API {
     } catch (err) {
       res.status(404).json({ message: err.message });
     }
+  } } catch(err) {res.status(404).json({
+    message: err.message,})}
   }
 
   // delete a post
   static async deletePost(req, res) {
+    try {
+      const post = await Post.findById(req.params.id)
+      if (post === null) {
+        res.status(404).json({
+          message: 'There is no such post!'})
+    } else {
     const id = req.params.id;
     try {
       const result = await Post.findByIdAndDelete(id);
@@ -80,5 +94,7 @@ module.exports = class API {
     } catch (err) {
       res.status(404).json({ message: err.message });
     }
-  }
+  }  } catch(err) {res.status(404).json({
+    message: err.message,})}
+}
 };

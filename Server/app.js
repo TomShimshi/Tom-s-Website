@@ -25,7 +25,8 @@ mongoose
   .catch((err) => console.log(err));
 
 // routes prefix
-app.use("/api/post", require("./routes/routes"));
+app.use("/api/post", require("./routes/posts_routes"));
+app.use("/api/task", require("./routes/tasks_routes"));
 
 // start server
 app.listen(port, () =>
