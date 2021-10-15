@@ -41,7 +41,7 @@
       drawer: null,
       items: [
         { title: "Home", icon: "mdi-home", link: "/" },
-        { title: "Add Post", icon: "mdi-note-plus", link: "/add-post" },
+        // { title: "Add Post", icon: "mdi-note-plus", link: "/add-post" },
         { title: "To Do List", icon: "mdi-help-box", link: "/to-do-list" },
       ],
     }),

@@ -6,10 +6,19 @@
       color="green accent-4"
       dark
       dismissible
+      v-model="alert"
       v-if="this.$route.params.message"
     >
       {{ this.$route.params.message }}</v-alert
     >
+    <v-toolbar>
+      <v-toolbar-title class="primary" text>All Posts</v-toolbar-title>
+      <v-col sm="4" class="d-flex right justify-space-around">
+        <v-btn icon :to="{ name: 'add-post' }" color="primary">
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+      </v-col>
+    </v-toolbar>
     <v-row no-gutters>
       <v-col sm="4" class="pa-3" v-for="post in posts" :key="post._id">
         <v-card class="pa-1" :to="{ name: 'post', params: { id: post._id } }">
@@ -23,13 +32,6 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col sm="4" class="pa-3">
-        <v-card class="pa-1">
-          <v-btn icon @click="dialog = !dialog" color="primary">
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
-        </v-card>
-      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -41,11 +43,16 @@
     data() {
       return {
         posts: [],
-        dialog: false,
+        alert: true,
       };
     },
     async created() {
       this.posts = await API.getAllPost();
+      if (this.$route.params.message) {
+        setTimeout(() => {
+          this.alert = false;
+        }, 5000);
+      }
     },
   };
 </script>

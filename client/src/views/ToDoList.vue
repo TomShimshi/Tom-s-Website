@@ -1,15 +1,23 @@
 <template>
-  <v-row>
+  <v-container>
+    <v-alert
+      border="left"
+      close-text="Close Alert"
+      color="green accent-4"
+      dark
+      dismissible
+      v-model="alert"
+      v-if="this.$route.params.message"
+    >
+      {{ this.$route.params.message }}</v-alert
+    >
     <v-col>
       <v-container class="mx-auto" max-width="500">
         <v-toolbar color="primary" dark>
           <v-app-bar-nav-icon></v-app-bar-nav-icon>
           <v-toolbar-title>To Do List</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn icon>
-            <v-icon>mdi-magnify</v-icon>
-          </v-btn>
-          <v-btn icon @click="dialog = !dialog">
+          <v-btn icon :to="{ name: 'add-task' }" color="secondary">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </v-toolbar>
@@ -17,15 +25,10 @@
         <v-list>
           <v-list-item-group color="primary" multiple>
             <template v-for="(task, index) in tasks">
-              <v-list-item :key="task.title">
+              <v-list-item :key="task._id">
                 <template v-slot:default="{ active }">
                   <v-list-item-content>
-                    <v-list-item-title v-text="task.title"></v-list-item-title>
-                    <v-list-item-subtitle
-                      v-text="task.deadline"
-                    ></v-list-item-subtitle>
-                  </v-list-item-content>
-                  <v-list-item-action>
+                    {{ task._id }}
                     <v-col>
                       <v-icon
                         v-if="!active"
@@ -37,7 +40,25 @@
                       <v-icon v-else class="mx-3" color="blue darken-3">
                         mdi-checkbox-marked-circle
                       </v-icon>
-                      <v-btn plain small class="mx-0" color="indigo">
+                    </v-col>
+                    <v-col>
+                      <v-list-item-title
+                        v-text="task.title"
+                      ></v-list-item-title>
+                      <v-list-item-subtitle
+                        v-text="task.deadline"
+                      ></v-list-item-subtitle>
+                    </v-col>
+                  </v-list-item-content>
+                  <v-list-item-action>
+                    <v-col>
+                      <v-btn
+                        plain
+                        small
+                        class="mx-0"
+                        color="indigo"
+                        :to="{ name: 'edit-task', params: { id: task._id } }"
+                      >
                         <v-icon>
                           mdi-pencil-outline
                         </v-icon>
@@ -47,7 +68,7 @@
                         small
                         class="mx-0"
                         color="indigo"
-                        @change="deleteTask(task)"
+                        @click="deleteTask(task)"
                       >
                         <v-icon>
                           mdi-delete-outline
@@ -65,31 +86,8 @@
           </v-list-item-group>
         </v-list>
       </v-container>
-      <v-dialog v-model="dialog" max-width="500px">
-        <v-card>
-          <v-card-title>Add Task</v-card-title>
-          <v-divider></v-divider>
-          <v-card-text>
-            <v-text-field
-              label="Title"
-              prepend-icon="mdi-note"
-              @change="newTask.title"
-            ></v-text-field>
-            <v-text-field
-              label="Deadline"
-              prepend-icon="mdi-calendar-month-outline"
-            ></v-text-field>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" @click="addTask()">
-              Submit
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
     </v-col>
-  </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -97,26 +95,29 @@
   export default {
     data() {
       return {
-        dialog: false,
-        newTask: { title: "", deadline: "" },
+        task: { title: "", deadline: "" },
         tasks: [],
+        alert: true,
       };
     },
     async created() {
       this.tasks = await API.getAllTask();
-      console.log(this.tasks);
+      if (this.$route.params.message) {
+        setTimeout(() => {
+          this.alert = false;
+        }, 5000);
+      }
     },
-    computed: {
+    methods: {
       async deleteTask(task) {
         const id = task._id;
-        res = await API.deleteTask(id);
-        console.log(res.data);
-      },
-      async addTask() {
-        // res = await API.addTask();
-      },
-      async updateTask() {
-        res = await API.updateTask();
+        const res = await API.deleteTask(id);
+        // this.$router.push({
+        //   name: "home",
+        //   params: { message: response.message },
+        // });
+        this.tasks = await API.getAllTask();
+        this.$forceUpdate(); //Render the page!!
       },
     },
   };

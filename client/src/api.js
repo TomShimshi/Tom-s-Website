@@ -41,12 +41,13 @@ export default class API {
   }
   // Insert task into the database
   static async addTask(task) {
-    const res = await axios.task(task_url, task);
+    const res = await axios.post(task_url, task);
     return res.data;
   }
   // Update task into database
   static async updateTask(id, task) {
     const res = await axios.patch(`${task_url}/${id}`, task);
+    console.log(res.data);
     return res.data;
   }
   // Delete a task from database

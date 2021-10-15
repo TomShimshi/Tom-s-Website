@@ -3,7 +3,13 @@
     <v-row no-gutters>
       <v-col sm="10" class="mx-auto">
         <v-card class="pa-5">
-          <v-card-title>Add New Post</v-card-title>
+          <v-card-title
+            >Add New Post
+            <v-btn icon title="go back" :to="{ name: 'home' }"
+              ><v-icon>mdi-arrow-left-top</v-icon></v-btn
+            >
+          </v-card-title>
+
           <v-divider></v-divider>
           <v-form
             ref="form"
