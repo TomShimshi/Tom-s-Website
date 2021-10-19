@@ -5,8 +5,6 @@ import AddPost from "../views/AddPost.vue";
 import Post from "../views/Post.vue";
 import EditPost from "../views/EditPost.vue";
 import ToDoList from "../views/ToDoList.vue";
-import EditTask from "../views/EditTask.vue";
-import AddTask from "../views/AddTask.vue";
 
 Vue.use(VueRouter);
 
@@ -35,16 +33,6 @@ const routes = [
     path: "/to-do-list",
     name: "to-do-list",
     component: ToDoList,
-  },
-  {
-    path: "/edit-task/:id",
-    name: "edit-task",
-    component: EditTask,
-  },
-  {
-    path: "/add-task",
-    name: "add-task",
-    component: AddTask,
   },
 ];
 
