@@ -77,8 +77,6 @@
         formData.append("category", this.post.category);
         formData.append("content", this.post.content);
         formData.append("old_image", this.post.image);
-        console.log(this.$route.params);
-        console.log(this.$route.params.id);
         if (this.$refs.form.validate()) {
           const response = await API.updatePost(
             this.$route.params.id,

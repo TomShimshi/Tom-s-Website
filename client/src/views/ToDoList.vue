@@ -7,9 +7,20 @@
       dark
       dismissible
       v-model="alert"
-      v-if="this.$route.params.message"
+      v-if="this.$route.params.message && !message"
     >
       {{ this.$route.params.message }}</v-alert
+    >
+    <v-alert
+      border="left"
+      close-text="Close Alert"
+      color="green accent-4"
+      dark
+      dismissible
+      v-model="alert"
+      v-if="message"
+    >
+      {{ message }}</v-alert
     >
     <v-col>
       <v-container class="mx-auto" max-width="500">
@@ -55,9 +66,9 @@
                       <v-btn
                         plain
                         small
+                        @click="updateTask(task)"
                         class="mx-0"
                         color="indigo"
-                        :to="{ name: 'edit-task', params: { id: task._id } }"
                       >
                         <v-icon>
                           mdi-pencil-outline
@@ -87,6 +98,37 @@
         </v-list>
       </v-container>
     </v-col>
+    <v-dialog v-model="dialog">
+      <v-card>
+        <v-form
+          ref="form"
+          @submit.prevent="updateForm()"
+          class="pa-5"
+          enctype="multipart/form-data"
+        >
+          <v-card-title>Update Task</v-card-title>
+          <v-divider></v-divider>
+          <v-card-text>
+            <v-text-field
+              label="Title"
+              prepend-icon="mdi-note"
+              v-model="taskToUpdate.title"
+            ></v-text-field>
+            <v-text-field
+              label="Deadline"
+              prepend-icon="mdi-calendar-month-outline"
+              v-model="taskToUpdate.deadline"
+            ></v-text-field>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" type="submit">
+              Submit
+            </v-btn>
+          </v-card-actions>
+        </v-form>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -95,29 +137,49 @@
   export default {
     data() {
       return {
-        task: { title: "", deadline: "" },
+        taskToUpdate: { title: "", deadline: "" },
+        taskIdToUpdate: "",
         tasks: [],
+        dialog: false,
         alert: true,
+        message: "",
       };
     },
-    async created() {
-      this.tasks = await API.getAllTask();
-      if (this.$route.params.message) {
-        setTimeout(() => {
-          this.alert = false;
-        }, 5000);
-      }
+    created() {
+      this.initialize();
     },
     methods: {
+      async initialize() {
+        this.tasks = await API.getAllTask();
+        if (this.message || this.$route.params.message) {
+          setTimeout(() => {
+            this.alert = false;
+          }, 5000);
+        }
+      },
       async deleteTask(task) {
         const id = task._id;
         const res = await API.deleteTask(id);
-        // this.$router.push({
-        //   name: "home",
-        //   params: { message: response.message },
-        // });
         this.tasks = await API.getAllTask();
         this.$forceUpdate(); //Render the page!!
+      },
+      async updateTask(task) {
+        this.dialog = !this.dialog;
+        this.taskToUpdate = { title: "", deadline: "" };
+        this.taskIdToUpdate = task._id;
+        const response = await API.getTaskById(task._id);
+        this.taskToUpdate = response;
+      },
+      async updateForm() {
+        const formData = new FormData();
+        formData.append("title", this.taskToUpdate.title);
+        formData.append("deadline", this.taskToUpdate.deadline);
+        const response = await API.updateTask(this.taskIdToUpdate, formData);
+        this.dialog = !this.dialog;
+        this.message = response.message;
+        this.alert = true;
+        this.initialize();
+        // this.$router.go(); // Refresh the page!!
       },
     },
   };
