@@ -21,6 +21,16 @@
                 <v-btn color="red" text @click="removePost(post._id)"
                   >Delete</v-btn
                 >
+
+                <v-btn
+                  plain
+                  title="go back"
+                  text
+                  color="indigo"
+                  :to="{ name: 'home' }"
+                >
+                  <v-icon>mdi-arrow-left</v-icon>
+                </v-btn>
               </v-col>
             </v-row>
           </v-card-actions>

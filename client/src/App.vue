@@ -40,7 +40,7 @@
     data: () => ({
       drawer: null,
       items: [
-        { title: "Home", icon: "mdi-home", link: "/" },
+        { title: "Courses", icon: "mdi-home", link: "/" },
         { title: "To Do List", icon: "mdi-help-box", link: "/to-do-list" },
       ],
     }),

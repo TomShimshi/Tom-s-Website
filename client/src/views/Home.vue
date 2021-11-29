@@ -12,12 +12,15 @@
       {{ this.$route.params.message }}</v-alert
     >
     <v-toolbar>
-      <v-toolbar-title class="primary" text>All Posts</v-toolbar-title>
-      <v-col sm="4" class="d-flex right justify-space-around">
-        <v-btn icon :to="{ name: 'add-post' }" color="primary">
-          <v-icon>mdi-plus</v-icon>
-        </v-btn>
-      </v-col>
+      <v-toolbar-title class="indigo--text">All Courses</v-toolbar-title>
+      <div class="flex-grow-1"></div>
+      <v-toolbar-items>
+        <v-col sm="4" class="text-right">
+          <v-btn icon :to="{ name: 'add-post' }" color="indigo">
+            <v-icon>mdi-plus</v-icon>
+          </v-btn>
+        </v-col>
+      </v-toolbar-items>
     </v-toolbar>
     <v-row no-gutters>
       <v-col sm="4" class="pa-3" v-for="post in posts" :key="post._id">

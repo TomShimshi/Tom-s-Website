@@ -3,11 +3,19 @@
     <v-row no-gutters>
       <v-col sm="10" class="mx-auto">
         <v-card class="pa-5">
-          <v-card-title
+          <v-card-title class="indigo--text"
             >Add New Post
-            <v-btn icon title="go back" :to="{ name: 'home' }"
-              ><v-icon>mdi-arrow-left-top</v-icon></v-btn
-            >
+            <div class="flex-grow-1"></div>
+            <v-col sm="4" class="text-right">
+              <v-btn
+                icon
+                title="go back"
+                text
+                color="indigo"
+                :to="{ name: 'home' }"
+                ><v-icon>mdi-arrow-left</v-icon></v-btn
+              >
+            </v-col>
           </v-card-title>
 
           <v-divider></v-divider>

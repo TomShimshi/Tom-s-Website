@@ -28,8 +28,7 @@
               <v-list-item :key="task._id">
                 <template v-slot:default="{ active }">
                   <v-list-item-content>
-                    {{ task._id }}
-                    <v-col>
+                    <v-col cols="1">
                       <v-icon
                         v-if="!active"
                         class="mx-3"
@@ -50,12 +49,13 @@
                       ></v-list-item-subtitle>
                     </v-col>
                   </v-list-item-content>
+
                   <v-list-item-action>
                     <v-col>
                       <v-btn
                         plain
                         small
-                        @click="updateTask(task)"
+                        @click.stop="updateTask(task)"
                         class="mx-0"
                         color="indigo"
                       >
@@ -68,7 +68,7 @@
                         small
                         class="mx-0"
                         color="indigo"
-                        @click="deleteTask(task)"
+                        @click.stop="deleteTask(task)"
                       >
                         <v-icon>
                           mdi-delete-outline
@@ -165,6 +165,7 @@
         addDialog: false,
         alert: true,
         message: "",
+        timer: null,
       };
     },
     created() {
@@ -173,8 +174,9 @@
     methods: {
       async initialize() {
         this.tasks = await API.getAllTask();
+        clearTimeout(this.timer);
         if (this.message) {
-          setTimeout(() => {
+          this.timer = setTimeout(() => {
             this.alert = false;
           }, 3000);
         }
@@ -183,7 +185,8 @@
         const id = task._id;
         const res = await API.deleteTask(id);
         this.tasks = await API.getAllTask();
-        this.message = "Task deleted successfully";
+        this.message = res.message;
+        // this.message = "Task deleted successfully";
         this.alert = true;
         this.initialize();
         // this.$forceUpdate(); //Render the page!!
